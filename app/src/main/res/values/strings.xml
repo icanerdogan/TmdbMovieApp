@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">OMDB API App</string>
+    <string name="content_description_media">Content Description Media</string>
+    <string name="title">Title</string>
+    <string name="secondary_text">Released</string>
+    <string name="movie_released_date">Movie Released Date</string>
+    <string name="movie_genre_type">Movie Genre Type</string>
+    <string name="movie_director">Movie Director</string>
+    <string name="plot">Plot</string>
+    <string name="movie_title">Movie Title</string>
+</resources>
