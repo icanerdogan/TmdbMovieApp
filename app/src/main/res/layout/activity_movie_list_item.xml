@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.google.android.material.card.MaterialCardView
             android:id="@+id/card"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:strokeWidth="1dp"
             app:strokeColor="@color/stroke_color"
@@ -39,6 +36,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/title"
+                        android:textSize="17sp"
+                        android:fontFamily="@font/ubuntu_bold"
                         android:textAppearance="?attr/textAppearanceHeadline6"/>
                 <TextView
                         android:id="@+id/textViewMovieListRelease"
@@ -46,6 +45,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
                         android:text="@string/secondary_text"
+                        android:textSize="13sp"
+                        android:fontFamily="@font/ubuntu_regular"
                         android:textAppearance="?attr/textAppearanceBody2"
                         android:textColor="?android:attr/textColorSecondary"/>
 
@@ -54,4 +55,4 @@
         </LinearLayout>
 
     </com.google.android.material.card.MaterialCardView>
-</LinearLayout>
+</layout>
