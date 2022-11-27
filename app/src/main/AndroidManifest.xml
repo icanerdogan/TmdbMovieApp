@@ -16,10 +16,10 @@
             android:theme="@style/Theme.OMDBAPIApp"
             tools:targetApi="31">
         <activity
-                android:name=".presentation.movie.MovieDetailActivity"
+                android:name=".presentation.movie.detail.MovieDetailActivity"
                 android:exported="false"/>
         <activity
-                android:name=".presentation.movie.MovieListActivity"
+                android:name=".presentation.movie.list.MovieListActivity"
                 android:exported="false"/>
         <activity
                 android:name=".presentation.MainActivity"

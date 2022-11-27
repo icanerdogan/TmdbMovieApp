@@ -4,7 +4,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".presentation.movie.MovieDetailActivity"
+        tools:context=".presentation.movie.detail.MovieDetailActivity"
         android:layout_margin="3dp">
 
     <FrameLayout

@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
+    id 'kotlin-android'
     id 'kotlin-kapt'
 }
 
@@ -9,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.ibrahimcanerdogan.omdbapiapp"
-        minSdk 26
+        minSdk 30
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -39,7 +40,7 @@ android {
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.9.0'
+    implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
     implementation 'com.google.android.material:material:1.7.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
@@ -55,7 +56,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$lifecycle_version"
-    kapt "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+    kapt "androidx.lifecycle:lifecycle-compiler:2.5.1"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-service:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-process:$lifecycle_version"
@@ -75,10 +76,10 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.0"
 
     // DAGGER
-    implementation 'com.google.dagger:dagger:2.44.2'
-    implementation 'com.google.dagger:dagger-android-support:2.44.2'
-    kapt 'com.google.dagger:dagger-compiler:2.44.2'
-    kapt 'com.google.dagger:dagger-android-processor:2.44.2'
+    implementation 'com.google.dagger:dagger:2.40'
+    implementation "com.google.dagger:dagger-android-support:2.40"
+    kapt 'com.google.dagger:dagger-compiler:2.40'
+    kapt "com.google.dagger:dagger-android-processor:2.40"
 
     // RETROFIT
     def retrofitVersion = '2.9.0'

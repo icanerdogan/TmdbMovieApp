@@ -1,4 +1,4 @@
-package com.ibrahimcanerdogan.omdbapiapp.presentation.movie
+package com.ibrahimcanerdogan.omdbapiapp.presentation.movie.list
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
