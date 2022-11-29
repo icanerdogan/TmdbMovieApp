@@ -10,6 +10,7 @@ import com.ibrahimcanerdogan.omdbapiapp.databinding.ActivityMovieListItemBinding
 class MovieAdapter(): RecyclerView.Adapter<MovieViewHolder>() {
 
     private val movieList = ArrayList<Movie>()
+    var onClick : ((Movie) -> Unit)? = null
 
     fun setMovieList(movies: List<Movie>) {
         movieList.clear()
@@ -25,12 +26,15 @@ class MovieAdapter(): RecyclerView.Adapter<MovieViewHolder>() {
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
         holder.bind(movieList[position])
+        holder.itemView.setOnClickListener {
+            onClick?.invoke(movieList[position])
+        }
     }
 
 
 }
 class MovieViewHolder(val binding: ActivityMovieListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(movie : Movie){
+    fun bind(movie : Movie) {
         binding.textViewMovieListTitle.text = movie.movieTitle
         binding.textViewMovieListRelease.text = movie.movieReleaseDate
 

@@ -1,5 +1,7 @@
 package com.ibrahimcanerdogan.omdbapiapp.data.model.movie
 
+import android.os.Parcel
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
@@ -15,26 +17,48 @@ data class Movie(
     val movieReleaseDate: String?,
     @SerializedName("poster_path")
     val moviePosterPath: String?,
-)
+    @SerializedName("backdrop_path")
+    val movieBackdropPath: String?,
+    @SerializedName("overview")
+    val movieOverview: String?,
+    @SerializedName("popularity")
+    val moviePopularity: Double?,
+    @SerializedName("vote_average")
+    val movieVoteAverage: Double?,
+) : Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readInt(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readString(),
+        parcel.readDouble(),
+        parcel.readDouble()
+    )
 
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeInt(movieID)
+        parcel.writeString(movieTitle)
+        parcel.writeString(movieReleaseDate)
+        parcel.writeString(moviePosterPath)
+        parcel.writeString(movieBackdropPath)
+        parcel.writeString(movieOverview)
+        parcel.writeDouble(moviePopularity!!)
+        parcel.writeDouble(movieVoteAverage!!)
+    }
 
-/*
-"adult": false,
-"backdrop_path": "/bQXAqRx2Fgc46uCVWgoPz5L5Dtr.jpg",
-"genre_ids": [
-28,
-14,
-878
-],
-"id": 436270,
-"original_language": "en",
-"original_title": "Black Adam",
-"overview": "Nearly 5,000 years after he was bestowed with the almighty powers of the Egyptian gods—and imprisoned just as quickly—Black Adam is freed from his earthly tomb, ready to unleash his unique form of justice on the modern world.",
-"popularity": 15075.276,
-"poster_path": "/pFlaoHTZeyNkG83vxsAJiGzfSsa.jpg",
-"release_date": "2022-10-19",
-"title": "Black Adam",
-"video": false,
-"vote_average": 7.2,
-"vote_count": 1888
-}*/
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<Movie> {
+        override fun createFromParcel(parcel: Parcel): Movie {
+            return Movie(parcel)
+        }
+
+        override fun newArray(size: Int): Array<Movie?> {
+            return arrayOfNulls(size)
+        }
+    }
+}

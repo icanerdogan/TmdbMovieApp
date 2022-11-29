@@ -8,4 +8,5 @@
     <string name="movie_director">Movie Director</string>
     <string name="plot">Plot</string>
     <string name="movie_title">Movie Title</string>
+    <string name="movie_popularity_point">Movie Popularity</string>
 </resources>

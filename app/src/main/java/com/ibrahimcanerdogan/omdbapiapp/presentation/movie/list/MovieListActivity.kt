@@ -1,5 +1,6 @@
 package com.ibrahimcanerdogan.omdbapiapp.presentation.movie.list
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ibrahimcanerdogan.omdbapiapp.R
 import com.ibrahimcanerdogan.omdbapiapp.databinding.ActivityMovieListBinding
 import com.ibrahimcanerdogan.omdbapiapp.presentation.dependencyinjection.Injector
+import com.ibrahimcanerdogan.omdbapiapp.presentation.movie.detail.MovieDetailActivity
 import javax.inject.Inject
 
 class MovieListActivity : AppCompatActivity() {
@@ -24,8 +26,6 @@ class MovieListActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_movie_list)
-
         binding = ActivityMovieListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
@@ -39,6 +39,11 @@ class MovieListActivity : AppCompatActivity() {
     private fun initRecyclerView() {
         binding.recyclerMovieList.layoutManager = GridLayoutManager(this, 2)
         adapter = MovieAdapter()
+        adapter.onClick = {
+            val intent = Intent(this, MovieDetailActivity::class.java)
+            intent.putExtra("movie", it)
+            startActivity(intent)
+        }
         binding.recyclerMovieList.adapter = adapter
         displayPopularMovies()
     }

@@ -46,11 +46,12 @@
             <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.75"
+                    android:layout_weight="0.6"
                     android:orientation="vertical"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:padding="5dp">
+                    android:padding="5dp"
+                    android:background="@drawable/border_layout">
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -70,29 +71,13 @@
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="@string/movie_genre_type"
+                        android:text="@string/movie_popularity_point"
                         android:textColor="@color/gray"
                         android:textSize="13sp"
                         android:fontFamily="@font/ubuntu_bold"
                         android:padding="8dp"/>
                 <TextView
-                        android:id="@+id/textViewMovieDetailGenreType"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:textSize="18sp"
-                        android:fontFamily="@font/ubuntu_regular"
-                        android:padding="8dp"/>
-                <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="@string/movie_director"
-                        android:textColor="@color/gray"
-                        android:textSize="13sp"
-                        android:fontFamily="@font/ubuntu_bold"
-                        android:padding="8dp"/>
-                <TextView
-                        android:id="@+id/textViewMovieDetailDirector"
+                        android:id="@+id/textViewMovieDetailPopularity"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/black"
@@ -104,9 +89,18 @@
             <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.25"
+                    android:layout_weight="0.05"
                     android:orientation="vertical"
                     android:layout_gravity="center">
+            </LinearLayout>
+
+            <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.4"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    android:background="@drawable/border_layout">
                 <TextView
                         android:id="@+id/textViewMovieDetailIMDB"
                         android:layout_width="match_parent"
@@ -125,7 +119,9 @@
     <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="0.5">
+            android:layout_weight="0.5"
+            android:layout_margin="10dp"
+        android:background="@drawable/border_layout">
         <TextView
                 android:id="@+id/textViewMovieDetailPlot"
                 android:layout_width="match_parent"
