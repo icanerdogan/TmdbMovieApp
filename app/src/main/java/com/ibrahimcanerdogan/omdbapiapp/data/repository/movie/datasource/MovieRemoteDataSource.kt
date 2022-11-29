@@ -4,5 +4,5 @@ import com.ibrahimcanerdogan.omdbapiapp.data.model.movie.MovieList
 import retrofit2.Response
 
 interface MovieRemoteDataSource {
-    suspend fun getMovies(): Response<MovieList>
+    suspend fun getMovies(pageNumber: Int): Response<MovieList>
 }

@@ -7,8 +7,8 @@ import retrofit2.Response
 
 class MovieRemoteDataSourceImpl(private val apiService: APIService): MovieRemoteDataSource {
 
-    override suspend fun getMovies(): Response<MovieList> {
-        return apiService.getAllMovieListFromApi()
+    override suspend fun getMovies(pageNumber: Int): Response<MovieList> {
+        return apiService.getAllMovieListFromApi(pageNumber)
     }
 
 }

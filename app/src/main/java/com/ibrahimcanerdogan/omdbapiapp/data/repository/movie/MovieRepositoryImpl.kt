@@ -6,6 +6,9 @@ import com.ibrahimcanerdogan.omdbapiapp.data.repository.movie.datasource.MovieCa
 import com.ibrahimcanerdogan.omdbapiapp.data.repository.movie.datasource.MovieLocalDataSource
 import com.ibrahimcanerdogan.omdbapiapp.data.repository.movie.datasource.MovieRemoteDataSource
 import com.ibrahimcanerdogan.omdbapiapp.domain.repository.MovieRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import java.lang.Exception
 
 class MovieRepositoryImpl(
@@ -14,33 +17,37 @@ class MovieRepositoryImpl(
     private val movieCacheDataSource: MovieCacheDataSource
 ): MovieRepository {
 
-    override suspend fun getMovies(): List<Movie> {
-        return getMoviesFromCache()
+    override suspend fun getMovies(pageNumber: Int, isScrolled: Boolean): List<Movie> {
+        return getMoviesFromCache(pageNumber, isScrolled)
     }
 
-    override suspend fun updateMovies(): List<Movie> {
-        val newListOfMovies = getMoviesFromAPI()
+    override suspend fun updateMovies(pageNumber: Int): List<Movie> {
+        val newListOfMovies = getMoviesFromAPI(pageNumber)
         movieLocalDataSource.clearAll()
         movieLocalDataSource.saveMoviesToDB(newListOfMovies)
         movieCacheDataSource.saveMoviesToCache(newListOfMovies)
         return newListOfMovies
     }
 
-    suspend fun getMoviesFromAPI(): List<Movie> {
+    suspend fun getMoviesFromAPI(pageNumber: Int): List<Movie> {
         lateinit var movieList: List<Movie>
-        try {
-            val response = movieRemoteDataSource.getMovies()
-            val body = response.body()
-            movieList = body?.movies ?: arrayListOf()
-            Log.i(TAG,movieList.toString())
+        runBlocking {
+            withContext(Dispatchers.IO) {
+                try {
+                    val response = movieRemoteDataSource.getMovies(pageNumber)
+                    val body = response.body()
+                    movieList = body?.movies ?: arrayListOf()
+                    Log.i(TAG,movieList.toString())
 
-        } catch (e: Exception){
-            Log.e(TAG,e.message.toString())
+                } catch (e: Exception){
+                    Log.e(TAG,e.message.toString())
+                }
+            }
         }
         return movieList
     }
 
-    suspend fun getMoviesFromDB(): List<Movie>{
+    suspend fun getMoviesFromDB(pageNumber: Int, isScrolled: Boolean): List<Movie>{
         lateinit var movieList: List<Movie>
         try {
             movieList = movieLocalDataSource.getMoviesFromDB()
@@ -49,17 +56,17 @@ class MovieRepositoryImpl(
             Log.e(TAG,e.message.toString())
         }
 
-        if (movieList.isNotEmpty()){
+        if (movieList.isNotEmpty() && !isScrolled){
             return movieList
         }
         else {
-            movieList = getMoviesFromAPI()
+            movieList = getMoviesFromAPI(pageNumber)
             movieLocalDataSource.saveMoviesToDB(movieList)
         }
         return movieList
     }
 
-    suspend fun getMoviesFromCache() : List<Movie>{
+    suspend fun getMoviesFromCache(pageNumber: Int, isScrolled: Boolean) : List<Movie>{
         lateinit var movieList: List<Movie>
         try {
             movieList = movieCacheDataSource.getMoviesFromCache()
@@ -68,11 +75,11 @@ class MovieRepositoryImpl(
             Log.e(TAG,e.message.toString())
         }
 
-        if (movieList.isNotEmpty()){
+        if (movieList.isNotEmpty() && !isScrolled){
             return movieList
         }
         else{
-            movieList = getMoviesFromDB()
+            movieList = getMoviesFromDB(pageNumber, isScrolled)
             movieCacheDataSource.saveMoviesToCache(movieList)
         }
         return movieList
