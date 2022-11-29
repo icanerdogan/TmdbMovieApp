@@ -5,5 +5,5 @@ import com.ibrahimcanerdogan.omdbapiapp.domain.repository.MovieRepository
 
 
 class GetMoviesUseCase(private val movieRepository: MovieRepository) {
-    suspend fun execute() : List<Movie>? = movieRepository.getMovies()
+    suspend fun execute(pageNumber: Int, isScrolled: Boolean) : List<Movie>? = movieRepository.getMovies(pageNumber, isScrolled)
 }

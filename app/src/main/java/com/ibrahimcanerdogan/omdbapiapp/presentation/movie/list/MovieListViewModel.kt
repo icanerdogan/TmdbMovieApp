@@ -11,12 +11,12 @@ class MovieListViewModel(
     private val getMoviesUseCase: GetMoviesUseCase,
     private val updateMoviesUseCase: UpdateMoviesUseCase
 ): ViewModel() {
-    fun getMovies() : LiveData<List<Movie>?> = liveData {
-        val movieList : List<Movie>? = getMoviesUseCase.execute()
+    fun getMovies(pageNumber: Int, isScrolled: Boolean) : LiveData<List<Movie>?> = liveData {
+        val movieList : List<Movie>? = getMoviesUseCase.execute(pageNumber, isScrolled)
         emit(movieList)
     }
-    fun updateMovies() : LiveData<List<Movie>?> =  liveData {
-        val movieList: List<Movie>? = updateMoviesUseCase.execute()
+    fun updateMovies(pageNumber: Int) : LiveData<List<Movie>?> =  liveData {
+        val movieList: List<Movie>? = updateMoviesUseCase.execute(pageNumber)
         emit(movieList)
     }
 }

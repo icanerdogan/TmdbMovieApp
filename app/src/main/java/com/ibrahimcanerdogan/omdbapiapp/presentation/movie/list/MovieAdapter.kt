@@ -7,9 +7,9 @@ import com.bumptech.glide.Glide
 import com.ibrahimcanerdogan.omdbapiapp.data.model.movie.Movie
 import com.ibrahimcanerdogan.omdbapiapp.databinding.ActivityMovieListItemBinding
 
-class MovieAdapter(): RecyclerView.Adapter<MovieViewHolder>() {
+class MovieAdapter(val movieList: ArrayList<Movie>): RecyclerView.Adapter<MovieViewHolder>() {
 
-    private val movieList = ArrayList<Movie>()
+
     var onClick : ((Movie) -> Unit)? = null
 
     fun setMovieList(movies: List<Movie>) {
