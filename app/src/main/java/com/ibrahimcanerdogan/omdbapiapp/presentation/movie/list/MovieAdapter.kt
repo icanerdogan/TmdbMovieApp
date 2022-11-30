@@ -9,12 +9,8 @@ import com.ibrahimcanerdogan.omdbapiapp.databinding.ActivityMovieListItemBinding
 
 class MovieAdapter(val movieList: ArrayList<Movie>): RecyclerView.Adapter<MovieViewHolder>() {
 
-
     var onClick : ((Movie) -> Unit)? = null
 
-    fun setMovieList(movies: List<Movie>) {
-        movieList.addAll(movies)
-    }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(ActivityMovieListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -30,6 +26,9 @@ class MovieAdapter(val movieList: ArrayList<Movie>): RecyclerView.Adapter<MovieV
         }
     }
 
+    fun setMovieList(movies: List<Movie>) {
+        movieList.addAll(movies)
+    }
 
 }
 class MovieViewHolder(val binding: ActivityMovieListItemBinding) : RecyclerView.ViewHolder(binding.root) {
