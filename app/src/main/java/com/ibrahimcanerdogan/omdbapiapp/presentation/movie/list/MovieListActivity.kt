@@ -51,7 +51,7 @@ class MovieListActivity : AppCompatActivity() {
         adapter = MovieAdapter(movieList)
         adapter.onClick = {
             val intent = Intent(this, MovieDetailActivity::class.java)
-            intent.putExtra("movie", it)
+            intent.putExtra("SelectedMovieID", it.movieID)
             startActivity(intent)
         }
         binding.recyclerMovieList.adapter = adapter

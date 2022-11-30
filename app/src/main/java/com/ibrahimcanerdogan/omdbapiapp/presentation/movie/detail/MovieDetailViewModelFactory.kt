@@ -1,17 +1,17 @@
-package com.ibrahimcanerdogan.omdbapiapp.presentation.movie.list
+package com.ibrahimcanerdogan.omdbapiapp.presentation.movie.detail
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.ibrahimcanerdogan.omdbapiapp.domain.usecase.GetMoviesUseCase
 import com.ibrahimcanerdogan.omdbapiapp.domain.usecase.GetSelectMovieUseCase
 import com.ibrahimcanerdogan.omdbapiapp.domain.usecase.UpdateMoviesUseCase
-import com.ibrahimcanerdogan.omdbapiapp.presentation.movie.detail.MovieDetailActivity
+import com.ibrahimcanerdogan.omdbapiapp.presentation.movie.list.MovieListViewModel
 
-class MovieListViewModelFactory(
-    private val getMoviesUseCase: GetMoviesUseCase,
-    private val updateMoviesUsecase: UpdateMoviesUseCase
+class MovieDetailViewModelFactory(
+    private val getSelectMovieUseCase: GetSelectMovieUseCase
 ) : ViewModelProvider.Factory {
+
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return MovieListViewModel(getMoviesUseCase,updateMoviesUsecase) as T
+        return MovieDetailViewModel(getSelectMovieUseCase) as T
     }
 }

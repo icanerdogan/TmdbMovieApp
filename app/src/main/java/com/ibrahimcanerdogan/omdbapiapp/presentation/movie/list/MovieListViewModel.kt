@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.liveData
 import com.ibrahimcanerdogan.omdbapiapp.data.model.movie.Movie
 import com.ibrahimcanerdogan.omdbapiapp.domain.usecase.GetMoviesUseCase
+import com.ibrahimcanerdogan.omdbapiapp.domain.usecase.GetSelectMovieUseCase
 import com.ibrahimcanerdogan.omdbapiapp.domain.usecase.UpdateMoviesUseCase
 
 class MovieListViewModel(
@@ -19,4 +20,5 @@ class MovieListViewModel(
         val movieList: List<Movie>? = updateMoviesUseCase.execute(pageNumber)
         emit(movieList)
     }
+
 }
