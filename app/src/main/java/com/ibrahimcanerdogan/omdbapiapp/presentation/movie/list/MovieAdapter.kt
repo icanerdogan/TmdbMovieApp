@@ -13,7 +13,6 @@ class MovieAdapter(val movieList: ArrayList<Movie>): RecyclerView.Adapter<MovieV
     var onClick : ((Movie) -> Unit)? = null
 
     fun setMovieList(movies: List<Movie>) {
-        movieList.clear()
         movieList.addAll(movies)
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {

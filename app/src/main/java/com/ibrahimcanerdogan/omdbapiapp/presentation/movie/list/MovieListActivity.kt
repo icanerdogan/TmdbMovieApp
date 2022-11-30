@@ -59,10 +59,9 @@ class MovieListActivity : AppCompatActivity() {
         binding.recyclerMovieList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val lastItem: Int =
-                    (binding.recyclerMovieList.layoutManager as GridLayoutManager).findLastVisibleItemPosition()
+                val lastItem: Int = (binding.recyclerMovieList.layoutManager as GridLayoutManager).findLastVisibleItemPosition()
 
-                if (lastItem > movieList.size * 0.8) {
+                if (lastItem > movieList.size * 0.90) {
                     pageNumber += 1
                     displayPopularMovies(pageNumber, true)
                 }
