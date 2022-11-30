@@ -15,7 +15,7 @@ class MovieRepositoryImpl(
     private val movieRemoteDataSource: MovieRemoteDataSource,
     private val movieLocalDataSource: MovieLocalDataSource,
     private val movieCacheDataSource: MovieCacheDataSource
-): MovieRepository {
+) : MovieRepository {
 
     override suspend fun getMovies(pageNumber: Int, isScrolled: Boolean): List<Movie> {
         return getMoviesFromCache(pageNumber, isScrolled)
@@ -31,11 +31,10 @@ class MovieRepositoryImpl(
 
     override suspend fun getSelectedMovie(selectedMovieID: Int): Movie {
         lateinit var movie: Movie
-
         try {
             movie = movieLocalDataSource.getOneMovieFromDB(selectedMovieID)
-            Log.i(TAG, movie.toString())
-        } catch (e: Exception){
+            Log.i(TAG, "GetSelectedMovie")
+        } catch (e: Exception) {
             Log.e(TAG, e.message.toString())
         }
 
@@ -50,48 +49,45 @@ class MovieRepositoryImpl(
                     val response = movieRemoteDataSource.getMovies(pageNumber)
                     val body = response.body()
                     movieList = body?.movies ?: arrayListOf()
-                    Log.i(TAG,movieList.toString())
-
-                } catch (e: Exception){
-                    Log.e(TAG,e.message.toString())
+                    Log.i(TAG, "GetMoviesFromAPI")
+                } catch (e: Exception) {
+                    Log.e(TAG, e.message.toString())
                 }
             }
         }
         return movieList
     }
 
-    suspend fun getMoviesFromDB(pageNumber: Int, isScrolled: Boolean): List<Movie>{
+    suspend fun getMoviesFromDB(pageNumber: Int, isScrolled: Boolean): List<Movie> {
         lateinit var movieList: List<Movie>
         try {
             movieList = movieLocalDataSource.getMoviesFromDB()
-            Log.i(TAG,movieList.toString())
-        } catch (e: Exception){
-            Log.e(TAG,e.message.toString())
+            Log.i(TAG, "GetMoviesFromDB")
+        } catch (e: Exception) {
+            Log.e(TAG, e.message.toString())
         }
 
-        if (movieList.isNotEmpty() && !isScrolled){
+        if (movieList.isNotEmpty() && !isScrolled) {
             return movieList
-        }
-        else {
+        } else {
             movieList = getMoviesFromAPI(pageNumber)
             movieLocalDataSource.saveMoviesToDB(movieList)
         }
         return movieList
     }
 
-    suspend fun getMoviesFromCache(pageNumber: Int, isScrolled: Boolean) : List<Movie>{
+    suspend fun getMoviesFromCache(pageNumber: Int, isScrolled: Boolean): List<Movie> {
         lateinit var movieList: List<Movie>
         try {
             movieList = movieCacheDataSource.getMoviesFromCache()
-            Log.i(TAG, movieList.toString())
-        } catch (e: Exception){
-            Log.e(TAG,e.message.toString())
+            Log.i(TAG, "GetMoviesFromCache")
+        } catch (e: Exception) {
+            Log.e(TAG, e.message.toString())
         }
 
-        if (movieList.isNotEmpty() && !isScrolled){
+        if (movieList.isNotEmpty() && !isScrolled) {
             return movieList
-        }
-        else{
+        } else {
             movieList = getMoviesFromDB(pageNumber, isScrolled)
             movieCacheDataSource.saveMoviesToCache(movieList)
         }

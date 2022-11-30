@@ -8,11 +8,7 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface APIService {
-
     @GET("discover/movie?api_key=eeb5c133f7b9f02d885d6f90a2f5c910&language=en-US")
     suspend fun getAllMovieListFromApi(@Query("page") pageNumber: Int): Response<MovieList>
-
-    //@GET("movie/{ID}?api_key=eeb5c133f7b9f02d885d6f90a2f5c910&language=en-US")
-    //suspend fun getMovieDetailFromApi(@Path("ID") moveDetailID: Int): Single<MovieDetail>
-
+    
 }

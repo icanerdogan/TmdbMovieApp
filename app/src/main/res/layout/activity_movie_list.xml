@@ -5,6 +5,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/white"
         tools:context=".presentation.movie.list.MovieListActivity">
 
     <FrameLayout
@@ -25,8 +26,12 @@
 
         <ProgressBar
                 android:id="@+id/progressBarMovieList"
+                style="?android:attr/progressBarStyleLarge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:backgroundTint="@color/white"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/teal_200"
                 android:layout_gravity="center"
                 android:visibility="gone"/>
     </FrameLayout>

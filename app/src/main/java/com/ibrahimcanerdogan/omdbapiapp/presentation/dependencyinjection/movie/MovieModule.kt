@@ -15,11 +15,11 @@ class MovieModule {
     @Provides
     fun provideMovieViewModelFactory(
         getMoviesUseCase: GetMoviesUseCase,
-        updateMoviesUsecase: UpdateMoviesUseCase,
+        updateMoviesUseCase: UpdateMoviesUseCase,
     ): MovieListViewModelFactory {
         return MovieListViewModelFactory(
             getMoviesUseCase,
-            updateMoviesUsecase
+            updateMoviesUseCase
         )
     }
 

@@ -1,25 +1,23 @@
 package com.ibrahimcanerdogan.omdbapiapp.presentation.movie.list
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.ibrahimcanerdogan.omdbapiapp.R
 import com.ibrahimcanerdogan.omdbapiapp.data.model.movie.Movie
 import com.ibrahimcanerdogan.omdbapiapp.databinding.ActivityMovieListBinding
+import com.ibrahimcanerdogan.omdbapiapp.presentation.SplashActivity
 import com.ibrahimcanerdogan.omdbapiapp.presentation.dependencyinjection.Injector
 import com.ibrahimcanerdogan.omdbapiapp.presentation.movie.detail.MovieDetailActivity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
+import com.ibrahimcanerdogan.omdbapiapp.utils.InternetChecker
 import javax.inject.Inject
 
 class MovieListActivity : AppCompatActivity() {
@@ -43,36 +41,38 @@ class MovieListActivity : AppCompatActivity() {
         movieViewModel = ViewModelProvider(this, movieViewModelFactory)[MovieListViewModel::class.java]
 
         initRecyclerView()
+        loadMoviesWithInternet(1, false)
         refreshList()
     }
 
     private fun initRecyclerView() {
-        binding.recyclerMovieList.layoutManager = GridLayoutManager(this, 2)
         adapter = MovieAdapter(movieList)
         adapter.onClick = {
             val intent = Intent(this, MovieDetailActivity::class.java)
             intent.putExtra("SelectedMovieID", it.movieID)
             startActivity(intent)
         }
-        binding.recyclerMovieList.adapter = adapter
 
-        displayPopularMovies(1, false)
-
-        binding.recyclerMovieList.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        val recyclerView = binding.recyclerMovieList
+        recyclerView.layoutManager = GridLayoutManager(this, 2)
+        recyclerView.adapter = adapter
+        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
-                val lastItem: Int = (binding.recyclerMovieList.layoutManager as GridLayoutManager).findLastVisibleItemPosition()
+                val lastItem: Int =
+                    (binding.recyclerMovieList.layoutManager as GridLayoutManager).findLastVisibleItemPosition()
 
                 if (lastItem > movieList.size * 0.90) {
                     pageNumber += 1
-                    displayPopularMovies(pageNumber, true)
+                    loadMoviesWithInternet(pageNumber, true)
                 }
             }
         })
     }
 
-    private fun displayPopularMovies(pageNumber: Int, isScrolled: Boolean) {
-        binding.progressBarMovieList.visibility = View.VISIBLE
+    private fun loadMovies(pageNumber: Int, isScrolled: Boolean) {
+        val progressBar = binding.progressBarMovieList
+        progressBar.visibility = View.VISIBLE
 
         val responseLiveData: LiveData<List<Movie>?> = if (pageNumber != TOTAL_PAGES) {
             movieViewModel.getMovies(pageNumber, isScrolled)
@@ -84,20 +84,28 @@ class MovieListActivity : AppCompatActivity() {
             if (it != null) {
                 adapter.setMovieList(it)
                 adapter.notifyDataSetChanged()
-                binding.progressBarMovieList.visibility = View.GONE
+                progressBar.visibility = View.GONE
             } else {
-                binding.progressBarMovieList.visibility = View.GONE
-                Toast.makeText(applicationContext, "No Data Avaliable!", Toast.LENGTH_LONG).show()
+                progressBar.visibility = View.GONE
+                Toast.makeText(applicationContext, "No Data Available!", Toast.LENGTH_LONG).show()
             }
         })
+    }
+
+    private fun loadMoviesWithInternet(pageNumber: Int, isScrolled: Boolean) {
+        if (InternetChecker.checkInternet(this)) {
+            loadMovies(pageNumber, isScrolled)
+        }
     }
 
     private fun refreshList() {
         binding.swipeRefreshLayout.setOnRefreshListener {
             adapter.notifyDataSetChanged()
+            loadMoviesWithInternet(pageNumber, false)
             binding.swipeRefreshLayout.isRefreshing = false
         }
     }
+
     companion object {
         private const val TOTAL_PAGES = 36088
     }
