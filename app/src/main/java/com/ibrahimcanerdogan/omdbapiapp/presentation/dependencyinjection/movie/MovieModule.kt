@@ -1,8 +1,9 @@
 package com.ibrahimcanerdogan.omdbapiapp.presentation.dependencyinjection.movie
 
-import com.ibrahimcanerdogan.omdbapiapp.data.model.movie.MovieList
 import com.ibrahimcanerdogan.omdbapiapp.domain.usecase.GetMoviesUseCase
+import com.ibrahimcanerdogan.omdbapiapp.domain.usecase.GetSelectMovieUseCase
 import com.ibrahimcanerdogan.omdbapiapp.domain.usecase.UpdateMoviesUseCase
+import com.ibrahimcanerdogan.omdbapiapp.presentation.movie.detail.MovieDetailViewModelFactory
 import com.ibrahimcanerdogan.omdbapiapp.presentation.movie.list.MovieListViewModelFactory
 import dagger.Module
 import dagger.Provides
@@ -14,7 +15,7 @@ class MovieModule {
     @Provides
     fun provideMovieViewModelFactory(
         getMoviesUseCase: GetMoviesUseCase,
-        updateMoviesUsecase: UpdateMoviesUseCase
+        updateMoviesUsecase: UpdateMoviesUseCase,
     ): MovieListViewModelFactory {
         return MovieListViewModelFactory(
             getMoviesUseCase,
@@ -22,4 +23,14 @@ class MovieModule {
         )
     }
 
+
+    @MovieScope
+    @Provides
+    fun provideMovieDetailViewModelFactory(
+        getSelectMovieUseCase: GetSelectMovieUseCase
+    ): MovieDetailViewModelFactory {
+        return MovieDetailViewModelFactory(
+            getSelectMovieUseCase
+        )
+    }
 }

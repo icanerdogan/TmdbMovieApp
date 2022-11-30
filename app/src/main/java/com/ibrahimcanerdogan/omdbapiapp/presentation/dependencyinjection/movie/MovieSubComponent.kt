@@ -1,6 +1,7 @@
 package com.ibrahimcanerdogan.omdbapiapp.presentation.dependencyinjection.movie
 
 
+import com.ibrahimcanerdogan.omdbapiapp.presentation.movie.detail.MovieDetailActivity
 import com.ibrahimcanerdogan.omdbapiapp.presentation.movie.list.MovieListActivity
 import dagger.Subcomponent
 
@@ -8,7 +9,8 @@ import dagger.Subcomponent
 @Subcomponent(modules = [MovieModule::class])
 interface MovieSubComponent {
 
-    fun inject(movieActivity: MovieListActivity)
+    fun inject(movieListActivity: MovieListActivity)
+    fun inject(movieDetailActivity: MovieDetailActivity)
 
     @Subcomponent.Factory
     interface Factory{

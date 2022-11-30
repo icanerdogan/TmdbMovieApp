@@ -29,6 +29,19 @@ class MovieRepositoryImpl(
         return newListOfMovies
     }
 
+    override suspend fun getSelectedMovie(selectedMovieID: Int): Movie {
+        lateinit var movie: Movie
+
+        try {
+            movie = movieLocalDataSource.getOneMovieFromDB(selectedMovieID)
+            Log.i(TAG, movie.toString())
+        } catch (e: Exception){
+            Log.e(TAG, e.message.toString())
+        }
+
+        return movie
+    }
+
     suspend fun getMoviesFromAPI(pageNumber: Int): List<Movie> {
         lateinit var movieList: List<Movie>
         runBlocking {
