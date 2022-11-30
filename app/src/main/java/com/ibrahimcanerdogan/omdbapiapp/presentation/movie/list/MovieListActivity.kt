@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.ibrahimcanerdogan.omdbapiapp.R
 import com.ibrahimcanerdogan.omdbapiapp.data.model.movie.Movie
 import com.ibrahimcanerdogan.omdbapiapp.databinding.ActivityMovieListBinding
@@ -42,6 +43,7 @@ class MovieListActivity : AppCompatActivity() {
         movieViewModel = ViewModelProvider(this, movieViewModelFactory)[MovieListViewModel::class.java]
 
         initRecyclerView()
+        refreshList()
     }
 
     private fun initRecyclerView() {
@@ -90,7 +92,12 @@ class MovieListActivity : AppCompatActivity() {
         })
     }
 
-
+    private fun refreshList() {
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            adapter.notifyDataSetChanged()
+            binding.swipeRefreshLayout.isRefreshing = false
+        }
+    }
     companion object {
         private const val TOTAL_PAGES = 36088
     }
