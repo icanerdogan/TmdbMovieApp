@@ -5,7 +5,7 @@ import com.ibrahimcanerdogan.omdbapiapp.data.model.movie.Movie
 import com.ibrahimcanerdogan.omdbapiapp.data.repository.movie.datasource.MovieLocalDataSource
 import kotlinx.coroutines.*
 
-class MovieLocalDataSourceImpl(private val movieDao: MovieDao): MovieLocalDataSource {
+class MovieLocalDataSourceImpl(private val movieDao: MovieDao) : MovieLocalDataSource {
 
     override suspend fun getMoviesFromDB(): List<Movie> {
         return movieDao.getAllMoviesFromDB()

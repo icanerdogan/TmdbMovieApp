@@ -13,7 +13,7 @@ interface MovieSubComponent {
     fun inject(movieDetailActivity: MovieDetailActivity)
 
     @Subcomponent.Factory
-    interface Factory{
+    interface Factory {
         fun create(): MovieSubComponent
     }
 

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.ibrahimcanerdogan.omdbapiapp.data.model.movie.Movie
 import com.ibrahimcanerdogan.omdbapiapp.databinding.ActivityMovieListItemBinding
+import com.ibrahimcanerdogan.omdbapiapp.utils.GlideUtils
 
 class MovieAdapter(val movieList: ArrayList<Movie>): RecyclerView.Adapter<MovieViewHolder>() {
 
@@ -35,10 +36,10 @@ class MovieViewHolder(val binding: ActivityMovieListItemBinding) : RecyclerView.
     fun bind(movie : Movie) {
         binding.textViewMovieListTitle.text = movie.movieTitle
         binding.textViewMovieListRelease.text = movie.movieReleaseDate
-
-        val posterURL : String = "https://image.tmdb.org/t/p/w500" + movie.moviePosterPath
-        Glide.with(binding.imageViewMovieListPoster.context)
-            .load(posterURL)
-            .into(binding.imageViewMovieListPoster)
+        GlideUtils.setImagePoster(
+            movie.moviePosterPath,
+            binding.imageViewMovieListPoster.context,
+            binding.imageViewMovieListPoster
+        )
     }
 }
