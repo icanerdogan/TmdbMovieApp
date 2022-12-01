@@ -77,6 +77,7 @@ class MovieListActivity : AppCompatActivity() {
     }
     private fun initRecyclerView() {
         adapter = MovieAdapter(movieList)
+        adapter.setHasStableIds(true)
         adapter.onClick = {
             val intent = Intent(this, MovieDetailActivity::class.java)
             intent.putExtra("SelectedMovieID", it.movieID)
@@ -84,9 +85,11 @@ class MovieListActivity : AppCompatActivity() {
         }
 
         val recyclerView = binding.recyclerMovieList
+        recyclerView.isNestedScrollingEnabled = false;
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = adapter
         recyclerView.hasFixedSize()
+        recyclerView.setItemViewCacheSize(20);
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)

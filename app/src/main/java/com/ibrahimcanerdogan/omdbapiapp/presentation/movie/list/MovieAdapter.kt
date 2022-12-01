@@ -9,13 +9,15 @@ import com.ibrahimcanerdogan.omdbapiapp.data.model.movie.Movie
 import com.ibrahimcanerdogan.omdbapiapp.databinding.ActivityMovieListItemBinding
 import com.ibrahimcanerdogan.omdbapiapp.utils.GlideUtils
 
-class MovieAdapter(private var movieList: ArrayList<Movie>): RecyclerView.Adapter<MovieViewHolder>(), Filterable {
+class MovieAdapter(private var movieList: ArrayList<Movie>) : RecyclerView.Adapter<MovieViewHolder>(), Filterable {
 
-    var onClick : ((Movie) -> Unit)? = null
+    var onClick: ((Movie) -> Unit)? = null
     private var filteredList: ArrayList<Movie> = ArrayList()
+
     init {
         filteredList = movieList
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(ActivityMovieListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
@@ -36,7 +38,7 @@ class MovieAdapter(private var movieList: ArrayList<Movie>): RecyclerView.Adapte
     }
 
     override fun getFilter(): Filter {
-        return object: Filter() {
+        return object : Filter() {
 
             override fun performFiltering(text: CharSequence?): FilterResults {
                 val filterResults = FilterResults()
@@ -65,8 +67,9 @@ class MovieAdapter(private var movieList: ArrayList<Movie>): RecyclerView.Adapte
     }
 
 }
+
 class MovieViewHolder(private val binding: ActivityMovieListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(movie : Movie) {
+    fun bind(movie: Movie) {
         binding.textViewMovieListTitle.text = movie.movieTitle
         binding.textViewMovieListRelease.text = movie.movieReleaseDate
         GlideUtils.setImagePoster(
