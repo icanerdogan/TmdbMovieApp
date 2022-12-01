@@ -2,8 +2,6 @@ package com.ibrahimcanerdogan.omdbapiapp.presentation.movie.list
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,7 +12,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ibrahimcanerdogan.omdbapiapp.data.model.movie.Movie
 import com.ibrahimcanerdogan.omdbapiapp.databinding.ActivityMovieListBinding
-import com.ibrahimcanerdogan.omdbapiapp.presentation.SplashActivity
 import com.ibrahimcanerdogan.omdbapiapp.presentation.dependencyinjection.Injector
 import com.ibrahimcanerdogan.omdbapiapp.presentation.movie.detail.MovieDetailActivity
 import com.ibrahimcanerdogan.omdbapiapp.utils.InternetChecker
@@ -56,6 +53,7 @@ class MovieListActivity : AppCompatActivity() {
         val recyclerView = binding.recyclerMovieList
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         recyclerView.adapter = adapter
+        recyclerView.hasFixedSize()
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 super.onScrolled(recyclerView, dx, dy)
