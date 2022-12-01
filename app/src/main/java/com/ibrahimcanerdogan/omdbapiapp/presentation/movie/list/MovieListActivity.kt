@@ -2,14 +2,17 @@ package com.ibrahimcanerdogan.omdbapiapp.presentation.movie.list
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ibrahimcanerdogan.omdbapiapp.R
 import com.ibrahimcanerdogan.omdbapiapp.data.model.movie.Movie
 import com.ibrahimcanerdogan.omdbapiapp.databinding.ActivityMovieListBinding
 import com.ibrahimcanerdogan.omdbapiapp.presentation.dependencyinjection.Injector
@@ -27,6 +30,8 @@ class MovieListActivity : AppCompatActivity() {
     private lateinit var adapter: MovieAdapter
     private lateinit var binding: ActivityMovieListBinding
 
+    private lateinit var searchView: SearchView
+
     private var pageNumber: Int = 1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +47,34 @@ class MovieListActivity : AppCompatActivity() {
         refreshList()
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.list_menu, menu)
+        val menuItem: MenuItem = menu.findItem(R.id.search_menu)
+
+        searchView = menuItem.actionView as SearchView
+        searchView.maxWidth = Integer.MAX_VALUE
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.filter.filter(newText)
+                return false
+            }
+
+        })
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId) {
+            R.id.search_menu -> {
+                return true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
     private fun initRecyclerView() {
         adapter = MovieAdapter(movieList)
         adapter.onClick = {
@@ -78,16 +111,16 @@ class MovieListActivity : AppCompatActivity() {
             movieViewModel.getMovies(pageNumber, !isScrolled)
         }
 
-        responseLiveData.observe(this, Observer {
+        responseLiveData.observe(this) {
             if (it != null) {
                 adapter.setMovieList(it)
-                adapter.notifyDataSetChanged()
+                adapter.filter.filter(searchView.query)
                 progressBar.visibility = View.GONE
             } else {
                 progressBar.visibility = View.GONE
                 Toast.makeText(applicationContext, "No Data Available!", Toast.LENGTH_LONG).show()
             }
-        })
+        }
     }
 
     private fun loadMoviesWithInternet(pageNumber: Int, isScrolled: Boolean) {
@@ -98,8 +131,7 @@ class MovieListActivity : AppCompatActivity() {
 
     private fun refreshList() {
         binding.swipeRefreshLayout.setOnRefreshListener {
-            adapter.notifyDataSetChanged()
-            loadMoviesWithInternet(pageNumber, false)
+            adapter.filter.filter(searchView.query)
             binding.swipeRefreshLayout.isRefreshing = false
         }
     }

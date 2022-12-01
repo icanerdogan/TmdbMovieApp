@@ -6,6 +6,7 @@
         <entry key="..\:/Users/ibrahim.erdogan/Documents/MyDocuments/OmdbApiApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.259" />
         <entry key="..\:/Users/ibrahim.erdogan/Documents/MyDocuments/OmdbApiApp/app/src/main/res/drawable/border_layout.xml" value="0.2635" />
         <entry key="..\:/Users/ibrahim.erdogan/Documents/MyDocuments/OmdbApiApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.259" />
+        <entry key="..\:/Users/ibrahim.erdogan/Documents/MyDocuments/OmdbApiApp/app/src/main/res/drawable/ic_search.xml" value="0.259" />
         <entry key="..\:/Users/ibrahim.erdogan/Documents/MyDocuments/OmdbApiApp/app/src/main/res/drawable/imdb.xml" value="0.259" />
         <entry key="..\:/Users/ibrahim.erdogan/Documents/MyDocuments/OmdbApiApp/app/src/main/res/drawable/imdv.xml" value="0.2585" />
         <entry key="..\:/Users/ibrahim.erdogan/Documents/MyDocuments/OmdbApiApp/app/src/main/res/drawable/media.xml" value="0.259" />
@@ -16,6 +17,7 @@
         <entry key="..\:/Users/ibrahim.erdogan/Documents/MyDocuments/OmdbApiApp/app/src/main/res/layout/activity_movie_list_item.xml" value="0.264" />
         <entry key="..\:/Users/ibrahim.erdogan/Documents/MyDocuments/OmdbApiApp/app/src/main/res/layout/activity_splash.xml" value="0.18840579710144928" />
         <entry key="..\:/Users/ibrahim.erdogan/Documents/MyDocuments/OmdbApiApp/app/src/main/res/layout/splash_screen.xml" value="0.18840579710144928" />
+        <entry key="..\:/Users/ibrahim.erdogan/Documents/MyDocuments/OmdbApiApp/app/src/main/res/menu/list_menu.xml" value="0.2677083333333333" />
       </map>
     </option>
   </component>
