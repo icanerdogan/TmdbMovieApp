@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
-          package="com.ibrahimcanerdogan.omdbapiapp">
+          package="com.ibrahimcanerdogan.tmdbapp">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
-            android:name=".presentation.App"
+            android:name="com.ibrahimcanerdogan.tmdbapp.presentation.App"
             android:allowBackup="true"
             android:dataExtractionRules="@xml/data_extraction_rules"
             android:fullBackupContent="@xml/backup_rules"
-            android:icon="@mipmap/ic_launcher"
+            android:icon="@drawable/ic_movie"
             android:label="@string/app_name"
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.Material3.DayNight"
             tools:targetApi="31">
         <activity
-                android:name=".presentation.SplashActivity"
+                android:name="com.ibrahimcanerdogan.tmdbapp.presentation.SplashActivity"
                 android:exported="true"
                 android:theme="@style/Theme.Material3.DayNight.NoActionBar">
             <intent-filter>
@@ -28,14 +28,14 @@
             </intent-filter>
         </activity>
         <activity
-                android:name=".presentation.movie.detail.MovieDetailActivity"
+                android:name="com.ibrahimcanerdogan.tmdbapp.presentation.movie.detail.MovieDetailActivity"
                 android:exported="false"/>
         <activity
-                android:name=".presentation.movie.list.MovieListActivity"
+                android:name="com.ibrahimcanerdogan.tmdbapp.presentation.movie.list.MovieListActivity"
                 android:exported="false">
         </activity>
         <activity
-                android:name=".presentation.MainActivity"
+                android:name="com.ibrahimcanerdogan.tmdbapp.presentation.MainActivity"
                 android:exported="false"/>
     </application>
 

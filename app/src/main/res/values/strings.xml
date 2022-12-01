@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">OMDB API App</string>
+    <string name="app_name">TMDB App</string>
     <string name="content_description_media">Content Description Media</string>
     <string name="title">Title</string>
     <string name="secondary_text">Released</string>
